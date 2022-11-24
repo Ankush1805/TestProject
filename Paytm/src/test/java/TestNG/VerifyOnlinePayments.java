@@ -16,6 +16,10 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
 import pages.ElectricityBillPage;
 import pages.HomePage;
 import pages.MobileRechargePage;
@@ -29,12 +33,18 @@ public class VerifyOnlinePayments extends Base {
 	MobileRechargePage mobileRechargePage;
 	ElectricityBillPage electricityBillPage;
 	int testID;
+	static ExtentTest test;
+	static ExtentHtmlReporter reporter;
 	
 	@Parameters ("browser")
 	
 	@BeforeTest
 	public void launchBrowser(String browserName)
 	{
+		reporter = new ExtentHtmlReporter("test-output\\ExtentReport\\Extent.Html");
+		ExtentReports extend = new ExtentReports();
+		extend.attachReporter(reporter);
+		
 		if(browserName.equals("Chrome"))
 		{
 			driver = openChromeBrowser();
@@ -73,25 +83,35 @@ public class VerifyOnlinePayments extends Base {
 		
 		homePage.clickOnRechargePreapaidMobile();
 		
-		String data = Utility.getDataFromExcel("Paytm", 1, 2);
+		String data = Utility.getDataFromExcel("MobileRecharge", 2, 1);
 		mobileRechargePage.sendMobileNo(data);
 		
-		data = Utility.getDataFromExcel("Paytm", 1, 3);
+		data = Utility.getDataFromExcel("Mobile Recharge", 2, 2);
 		mobileRechargePage.sendAmount(data);
 		mobileRechargePage.clickOnProceedToRecharge();
 	}
 	
 
 	@Test (priority = 2)
-	public void verifyElectricityBillPayment()
+	public void verifyElectricityBillPayment() throws EncryptedDocumentException, IOException
 	{
 		testID = 2;
 		
 		homePage.clickOnPayElectricityBill();
-		electricityBillPage.selectState();
-		electricityBillPage.selectElectricityBoard();
-		electricityBillPage.selectSubDivision();
-		electricityBillPage.enterConsumerNo();
+		
+		String stateData = Utility.getDataFromExcel("ElectricityBill", 2, 1);
+		electricityBillPage.selectState(stateData);
+		
+		
+		String boardData = Utility.getDataFromExcel("ElectricityBill", 2, 2);
+		electricityBillPage.selectElectricityBoard(boardData);
+		
+		String divisionData = Utility.getDataFromExcel("ElectricityBill", 2, 3);
+		electricityBillPage.selectSubDivision(divisionData);
+		
+		String consNoData = Utility.getDataFromExcel("ElectricityBill", 2, 4);
+		electricityBillPage.sendConsumerNo(consNoData);
+		
 		electricityBillPage.clickOnProceedButton();
 	}
 	
@@ -102,6 +122,7 @@ public class VerifyOnlinePayments extends Base {
 		{
 			Utility.captureScreen(driver, testID);
 		}
+		
 		System.out.println("Logout");
 	}
 	

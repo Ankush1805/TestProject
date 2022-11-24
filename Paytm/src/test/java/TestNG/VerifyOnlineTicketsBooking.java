@@ -18,6 +18,10 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+
 import pages.BusTicketsPage;
 import pages.HomePage;
 import pages.TrainTicketsPage;
@@ -32,12 +36,18 @@ public class VerifyOnlineTicketsBooking extends Base{
 	BusTicketsPage busTicketsPage;
 	TrainTicketsPage trainTicketsPage ;
 	int testID;
+	static ExtentTest test;
+	static ExtentHtmlReporter reporter;
 	
 	@Parameters ("browser")
 	
 	@BeforeTest
 	public void launchBrowser(String browserName)
 	{
+		reporter = new ExtentHtmlReporter("test-output\\ExtentReport\\Extent.Html");
+		ExtentReports extend = new ExtentReports();
+		extend.attachReporter(reporter);
+		
 		if(browserName.equals("Chrome"))
 		{
 			driver = openChromeBrowser();

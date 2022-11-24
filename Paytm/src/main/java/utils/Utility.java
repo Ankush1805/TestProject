@@ -2,60 +2,81 @@ package utils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.io.FileHandler;
 
-public class Utility {
+public class Utility{
 	
-	public static void captureScreen(WebDriver driver, int TestID) throws IOException
+	public static void captureScreen(WebDriver driver, int testID)
 	{
-		SimpleDateFormat formatter = new SimpleDateFormat("DD-MM-YYYY hh-mm-ss");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
 		Date date = new Date();
 		String d = formatter.format(date);
-		
 		TakesScreenshot ts = (TakesScreenshot) driver ;
 		File src = ts.getScreenshotAs(OutputType.FILE);
-		File dest = new File("C:\\Users\\dell\\eclipse-workspace\\Paytm\\screenshots\\DemoTest "+d+" .jpg");
-		FileHandler.copy(src,  dest);
-	}
-	
-	
-	
-	public static String getDataFromExcel (String sheet,int row,int cell) throws EncryptedDocumentException, IOException 
-	{
-		String path = "F:\\Velocity Softwares\\TestCases.xlsx";
-		FileInputStream file = new FileInputStream(path);
-		Cell c = WorkbookFactory.create(file).getSheet(sheet).getRow(row).getCell(cell);
-		
-		String cellValue = "";
+		File dest = new File ("test-output\\testScreenshots\\Test-1 "+d+" + .jpg");
 		
 		try
 		{
-			cellValue = c.getStringCellValue();
+			FileHandler.copy(src, dest);
 		}
+		
+		catch(Exception e)
+		{
+			e.getMessage();
+		}
+		
+	}
+	
+	public static String getDataFromExcel(String sheet, int row, int cell) throws EncryptedDocumentException, IOException
+	{
+		String path = "src\\test\\resources\\testData\\TestData.xlsx" ;
+		FileInputStream file = new FileInputStream(path);
+		Cell c = WorkbookFactory.create(file).getSheet(sheet).getRow(row).getCell(cell);
+		
+		String cellvalue = "" ;
+		
+		try
+		{
+			cellvalue = c.getStringCellValue();
+		}
+		
 		catch(IllegalStateException ise)
 		{
 			Double numCellValue = c.getNumericCellValue();
-			cellValue = Double.toString(numCellValue);
+			
+			cellvalue = Double.toString(numCellValue);
 		}
-		catch(NullPointerException npe)
+		
+		catch (NullPointerException npe) 
 		{
 			npe.printStackTrace();
 			npe.getMessage();
 		}
 		
-		
-		return cellValue;
+		return cellvalue;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -39,32 +39,53 @@ public class ElectricityBillPage {
 		
 		
 		
-		public void selectState()
+//		public void selectState()
+//		{
+//			state.sendKeys("Maha");
+//			state.sendKeys(Keys.ARROW_DOWN);
+//			state.sendKeys(Keys.ENTER);
+//		}
+//		
+//		public void selectElectricityBoard()
+//		{
+//			electricityBoard.sendKeys("Maha");
+//			electricityBoard.sendKeys(Keys.ARROW_DOWN);
+//			electricityBoard.sendKeys(Keys.ENTER);
+//		}
+//		
+//		public void selectSubDivision()
+//		{
+//			subDivision.sendKeys("4327");
+//			subDivision.sendKeys(Keys.ARROW_DOWN);
+//			subDivision.sendKeys(Keys.ARROW_DOWN);
+//			subDivision.sendKeys(Keys.ARROW_DOWN);
+//			subDivision.sendKeys(Keys.ENTER);
+//		}
+		
+		public void selectState(String stateName)
 		{
-			state.sendKeys("Maha");
+			state.sendKeys(stateName);
 			state.sendKeys(Keys.ARROW_DOWN);
 			state.sendKeys(Keys.ENTER);
 		}
 		
-		public void selectElectricityBoard()
+		public void selectElectricityBoard(String elecBoard)
 		{
-			electricityBoard.sendKeys("Maha");
+			electricityBoard.sendKeys(elecBoard);
 			electricityBoard.sendKeys(Keys.ARROW_DOWN);
 			electricityBoard.sendKeys(Keys.ENTER);
 		}
 		
-		public void selectSubDivision()
+		public void selectSubDivision(String subDiv)
 		{
-			subDivision.sendKeys("4327");
-			subDivision.sendKeys(Keys.ARROW_DOWN);
-			subDivision.sendKeys(Keys.ARROW_DOWN);
+			subDivision.sendKeys(subDiv);
 			subDivision.sendKeys(Keys.ARROW_DOWN);
 			subDivision.sendKeys(Keys.ENTER);
 		}
 		
-		public void enterConsumerNo()
+		public void sendConsumerNo(String consNo)
 		{
-			consumerNo.sendKeys("450010304712");
+			consumerNo.sendKeys(consNo);
 		}
 		
 		public void clickOnProceedButton()
