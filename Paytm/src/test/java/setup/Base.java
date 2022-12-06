@@ -8,16 +8,16 @@ public class Base {
 	
 	public static WebDriver openChromeBrowser()
 	{
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\dell\\Documents\\Selenium\\chromedriver_win32(2)\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\browsers\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
 		return driver;
 	}
 	
 	public static WebDriver openEdgeBrowser()
 	{
-		 System.setProperty("webdriver.edge.driver", "C:\\Users\\dell\\Documents\\Selenium\\edgedriver_win64\\msedgedriver.exe");
-		 WebDriver driver = new EdgeDriver();
-		 return driver;
+		System.setProperty("webdriver.edge.driver", "src\\test\\resources\\browsers\\msedgedriver.exe");
+		WebDriver driver = new EdgeDriver();
+		return driver;
 	}
 
 }
